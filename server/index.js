@@ -401,11 +401,15 @@ app.use((req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`=======================================================`);
-  console.log(` NERCP Emergency Coordination API Server`);
-  console.log(` Scenario: Vijayawada Flood Emergency 2026`);
-  console.log(` Server running on: http://localhost:${PORT}`);
-  console.log(` API Endpoint:      http://localhost:${PORT}/api/dashboard/stats`);
-  console.log(`=======================================================`);
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`=======================================================`);
+    console.log(` NERCP Emergency Coordination API Server`);
+    console.log(` Scenario: Vijayawada Flood Emergency 2026`);
+    console.log(` Server running on: http://localhost:${PORT}`);
+    console.log(` API Endpoint:      http://localhost:${PORT}/api/dashboard/stats`);
+    console.log(`=======================================================`);
+  });
+}
+
+module.exports = app;

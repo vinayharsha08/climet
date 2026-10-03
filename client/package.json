@@ -14,12 +14,12 @@
     "clsx": "^2.1.1",
     "leaflet": "^1.9.4",
     "lucide-react": "^1.51.0",
+    "nercp-emergency-platform": "file:..",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "tailwind-merge": "^3.7.0"
   },
   "devDependencies": {
-    "@rolldown/binding-win32-x64-msvc": "^1.2.12",
     "@types/node": "^24.13.3",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.7",
@@ -30,5 +30,9 @@
     "tailwindcss": "^3.4.19",
     "typescript": "~6.0.2",
     "vite": "^8.3.0"
+  },
+  "optionalDependencies": {
+    "@rolldown/binding-linux-x64-gnu": "^1.2.12",
+    "@rolldown/binding-win32-x64-msvc": "^1.2.12"
   }
 }
