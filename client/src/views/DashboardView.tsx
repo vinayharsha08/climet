@@ -17,6 +17,8 @@ import {
   RefreshCw,
   Clock,
   Compass,
+  Bot,
+  X,
 } from 'lucide-react';
 import { api } from '../services/api';
 
@@ -84,6 +86,26 @@ export const DashboardView: React.FC = () => {
     }
   };
 
+  const [showAiModal, setShowAiModal] = React.useState(false);
+  const [aiSitrep, setAiSitrep] = React.useState<{ sitrep: string; source: string } | null>(null);
+  const [generatingAi, setGeneratingAi] = React.useState(false);
+
+  const handleGenerateAiSitrep = async () => {
+    setGeneratingAi(true);
+    setShowAiModal(true);
+    try {
+      const res = await api.getAiSitrep();
+      setAiSitrep(res);
+    } catch (err: any) {
+      setAiSitrep({
+        sitrep: `Failed to generate AI SitRep: ${err.message}`,
+        source: 'Error',
+      });
+    } finally {
+      setGeneratingAi(false);
+    }
+  };
+
   const handleShelterSimulation = async () => {
     try {
       const res = await api.simulateShelterOvercrowd('SHL-02', role);
@@ -114,6 +136,15 @@ export const DashboardView: React.FC = () => {
 
         {/* Quick Simulation Bar */}
         <div className="flex flex-wrap items-center gap-2">
+          {/* AI SitRep Generator Button */}
+          <button
+            onClick={handleGenerateAiSitrep}
+            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white shadow-md transition-all hover:scale-105 active:scale-95"
+          >
+            <Sparkles className="w-3.5 h-3.5 text-amber-300 animate-pulse" />
+            <span>AI Situation Report</span>
+          </button>
+
           <button
             onClick={startTour}
             className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-lg bg-blue-600 hover:bg-blue-500 text-white shadow transition-all hover:scale-105 active:scale-95"
@@ -557,6 +588,85 @@ export const DashboardView: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* AI Situation Report Modal */}
+      {showAiModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fadeIn">
+          <div className="bg-gray-900 border border-indigo-500/60 rounded-xl shadow-2xl max-w-2xl w-full overflow-hidden text-gray-100 flex flex-col max-h-[85vh]">
+            {/* Modal Header */}
+            <div className="bg-gradient-to-r from-indigo-950 via-purple-900 to-indigo-950 px-6 py-4 border-b border-indigo-800 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-indigo-600/30 rounded-lg border border-indigo-500/50 text-indigo-300">
+                  <Bot className="w-6 h-6 text-indigo-400" />
+                </div>
+                <div>
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-indigo-300 font-bold block">
+                    AI TACTICAL COMMAND INTELLIGENCE
+                  </span>
+                  <h3 className="text-base font-bold text-white flex items-center gap-2">
+                    Autonomous Situation Report (SitRep)
+                  </h3>
+                </div>
+              </div>
+              <button
+                onClick={() => setShowAiModal(false)}
+                className="p-1.5 rounded-lg bg-gray-800 text-gray-400 hover:text-white transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Modal Body */}
+            <div className="p-6 overflow-y-auto space-y-4">
+              {generatingAi ? (
+                <div className="py-12 text-center space-y-3">
+                  <RefreshCw className="w-8 h-8 text-indigo-400 animate-spin mx-auto" />
+                  <p className="text-xs text-gray-300 font-medium">
+                    Synthesizing real-time disaster telemetry with GenAI reasoning...
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between text-[11px] pb-2 border-b border-gray-800 text-gray-400">
+                    <span>
+                      Generated Engine: <strong className="text-indigo-300">{aiSitrep?.source || 'Gemini AI'}</strong>
+                    </span>
+                    <span className="font-mono text-gray-500">
+                      {new Date().toLocaleTimeString()}
+                    </span>
+                  </div>
+
+                  <div className="bg-gray-950 p-4 rounded-lg border border-gray-800 text-xs text-gray-200 leading-relaxed font-sans whitespace-pre-wrap">
+                    {aiSitrep?.sitrep}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Modal Footer */}
+            <div className="bg-gray-950 px-6 py-3.5 border-t border-gray-800 flex items-center justify-between">
+              <span className="text-[11px] text-gray-500">
+                Ground telemetry verified with National Relief Authority
+              </span>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={handleGenerateAiSitrep}
+                  disabled={generatingAi}
+                  className="px-3 py-1.5 rounded-lg bg-gray-800 hover:bg-gray-750 text-gray-300 text-xs font-medium border border-gray-700 transition-colors"
+                >
+                  Regenerate SitRep
+                </button>
+                <button
+                  onClick={() => setShowAiModal(false)}
+                  className="px-4 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold shadow transition-colors"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

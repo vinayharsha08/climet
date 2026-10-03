@@ -132,6 +132,12 @@ export const api = {
       method: 'POST',
     }),
 
+  // AI SitRep
+  getAiSitrep: () =>
+    fetchJson<{ sitrep: string; source: string }>('/ai/situation-report', {
+      method: 'POST',
+    }),
+
   // Demo Reset
   resetData: () => fetchJson<{ message: string; data: any }>('/reset-data', { method: 'POST' }),
 };

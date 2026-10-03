@@ -61,7 +61,9 @@
       "waterLevel": "+1.7m above normal",
       "status": "Active",
       "description": "Stormwater drains backflowing near Durga Temple foothills, cutting off access to commercial lanes and 180 households.",
-      "createdAt": "2026-10-03T07:15:00.000Z"
+      "createdAt": "2026-10-03T07:15:00.000Z",
+      "updateReason": "Status marked as Active",
+      "updatedAt": "2026-10-03T08:04:24.887Z"
     },
     {
       "id": "INC-03",
@@ -106,9 +108,9 @@
       "orgName": "Indian Red Cross Society (IRCS)",
       "type": "Emergency Medical Kits",
       "category": "Medical",
-      "availableQuantity": 90,
+      "availableQuantity": 40,
       "reservedQuantity": 10,
-      "allocatedQuantity": 20,
+      "allocatedQuantity": 70,
       "consumedQuantity": 40,
       "warehouseLocation": "Red Cross Depot, Governorpet",
       "coordinates": {
@@ -240,11 +242,11 @@
         "lat": 16.511,
         "lng": 80.63
       },
-      "status": "Available",
+      "status": "En Route",
       "driver": "K. Venkat Rao",
-      "assignedTeamId": null,
-      "destination": null,
-      "eta": null,
+      "assignedTeamId": "TEAM-03",
+      "destination": "Bhavanipuram Community Health Post (Zone A)",
+      "eta": "18 mins",
       "fuelLevel": 92
     },
     {
@@ -278,11 +280,11 @@
         "lat": 16.511,
         "lng": 80.63
       },
-      "status": "Available",
+      "status": "En Route",
       "driver": "P. Ramesh Babu",
       "assignedTeamId": null,
       "destination": null,
-      "eta": null,
+      "eta": "10 mins (Bypass)",
       "fuelLevel": 78
     },
     {
@@ -387,8 +389,8 @@
         "lat": 16.511,
         "lng": 80.63
       },
-      "availability": "Available",
-      "currentAssignment": null,
+      "availability": "Assigned",
+      "currentAssignment": "Operation for REQ-101",
       "workload": "Moderate (1 standby task)"
     },
     {
@@ -493,12 +495,12 @@
       "affectedPeople": 620,
       "priority": "Critical",
       "priorityReason": "Affected people (620) > 500 AND urgent trauma/infection medical kits required for stranded families.",
-      "status": "Pending",
-      "assignedOrgId": null,
-      "assignedTeamId": null,
-      "assignedVehicleId": null,
-      "deliveryId": null,
-      "eta": null,
+      "status": "Allocated",
+      "assignedOrgId": "ORG-02",
+      "assignedTeamId": "TEAM-03",
+      "assignedVehicleId": "VEH-01",
+      "deliveryId": "OP-102",
+      "eta": "18 mins",
       "notes": "Flood water entering ground floor of primary clinic; urgent IV fluids and trauma bandages needed.",
       "createdAt": "2026-10-03T08:00:00.000Z"
     },
@@ -625,6 +627,64 @@
   ],
   "deliveries": [
     {
+      "id": "OP-102",
+      "requestId": "REQ-101",
+      "incidentId": "INC-01",
+      "resourceType": "Emergency Medical Kits",
+      "quantity": 50,
+      "teamId": "TEAM-03",
+      "teamName": "Red Cross Emergency Paramedics",
+      "vehicleId": "VEH-01",
+      "vehicleName": "Ambulance AMB-01 (ALS)",
+      "sourceLocation": "Red Cross Depot, Governorpet",
+      "sourceCoordinates": {
+        "lat": 16.511,
+        "lng": 80.63
+      },
+      "destinationLocation": "Bhavanipuram Community Health Post (Zone A)",
+      "destinationCoordinates": {
+        "lat": 16.52,
+        "lng": 80.595
+      },
+      "status": "En Route",
+      "progressPercent": 20,
+      "currentWayPointIndex": 1,
+      "waypoints": [
+        {
+          "name": "Red Cross Depot, Governorpet",
+          "lat": 16.514,
+          "lng": 80.655,
+          "status": "passed"
+        },
+        {
+          "name": "Prakasam Barrage Approach Checkpoint",
+          "lat": 16.508,
+          "lng": 80.606,
+          "status": "pending"
+        },
+        {
+          "name": "Bhavanipuram Sector Crossing",
+          "lat": 16.516,
+          "lng": 80.6,
+          "status": "pending"
+        },
+        {
+          "name": "Bhavanipuram Community Health Post (Zone A)",
+          "lat": 16.52,
+          "lng": 80.595,
+          "status": "pending"
+        }
+      ],
+      "originalRoute": "Logistics Hub -> Prakasam Barrage Approach -> Bhavanipuram Sector",
+      "activeRoute": "Logistics Hub -> Prakasam Barrage Approach -> Bhavanipuram Sector",
+      "etaMinutes": 18,
+      "isBlocked": false,
+      "blockageDetails": null,
+      "rerouteReason": null,
+      "startedAt": "2026-10-03T08:06:19.651Z",
+      "completedAt": null
+    },
+    {
       "id": "OP-101",
       "requestId": "REQ-099",
       "incidentId": "INC-01",
@@ -644,7 +704,7 @@
         "lat": 16.521,
         "lng": 80.596
       },
-      "status": "Delivered",
+      "status": "Rerouted",
       "progressPercent": 100,
       "currentWayPointIndex": 3,
       "waypoints": [
@@ -658,7 +718,7 @@
           "name": "Besant Road Crossing",
           "lat": 16.5125,
           "lng": 80.622,
-          "status": "passed"
+          "status": "blocked"
         },
         {
           "name": "Prakasam Flyover Approach",
@@ -674,16 +734,60 @@
         }
       ],
       "originalRoute": "Governorpet -> Prakasam Flyover -> Bhavanipuram",
-      "activeRoute": "Governorpet -> Prakasam Flyover -> Bhavanipuram",
-      "etaMinutes": 0,
-      "isBlocked": false,
-      "blockageDetails": null,
-      "rerouteReason": null,
+      "activeRoute": "Diverted via Kanaka Durga Elevated Flyover & Inner Ring Road Bypass",
+      "etaMinutes": 10,
+      "isBlocked": true,
+      "blockageDetails": "Flash surge over Prakasam Barrage North embankment: +3.2m water inundation & debris blockage.",
+      "rerouteReason": "Assignment changed because the original route became unavailable due to flash flood obstruction.",
       "startedAt": "2026-10-03T07:30:00.000Z",
       "completedAt": "2026-10-03T08:12:00.000Z"
     }
   ],
   "auditLogs": [
+    {
+      "id": "AUD-08",
+      "timestamp": "2026-10-03T08:06:19.651Z",
+      "userRole": "Command Center Admin",
+      "action": "Resource Allocation & Delivery Dispatched",
+      "entity": "Delivery",
+      "entityId": "OP-102",
+      "previousValue": "Unassigned",
+      "newValue": "Dispatched Ambulance AMB-01 (ALS) with Red Cross Emergency Paramedics to Bhavanipuram Community Health Post (Zone A)",
+      "reason": "Automated recommendation approved. 50 units allocated from Red Cross Depot, Governorpet."
+    },
+    {
+      "id": "AUD-07",
+      "timestamp": "2026-10-03T08:04:24.887Z",
+      "userRole": "Command Center Admin",
+      "action": "Incident Updated",
+      "entity": "Incident",
+      "entityId": "INC-02",
+      "previousValue": "Status: Contained, Severity: High",
+      "newValue": "Status: Active, Severity: High",
+      "reason": "Status marked as Active"
+    },
+    {
+      "id": "AUD-06",
+      "timestamp": "2026-10-03T08:04:23.122Z",
+      "userRole": "Command Center Admin",
+      "action": "Incident Updated",
+      "entity": "Incident",
+      "entityId": "INC-02",
+      "previousValue": "Status: Active, Severity: High",
+      "newValue": "Status: Contained, Severity: High",
+      "reason": "Status marked as Contained"
+    },
+    {
+      "id": "AUD-05",
+      "timestamp": "2026-10-03T08:03:11.472Z",
+      "userRole": "System AI Engine",
+      "action": "Route Recalculated & Diverted",
+      "entity": "Delivery",
+      "entityId": "OP-101",
+      "previousValue": "Route: Governorpet -> Prakasam Flyover -> Bhavanipuram (ETA: 0 min)",
+      "newValue": "Route: Diverted via Kanaka Durga Elevated Flyover & Inner Ring Road Bypass (ETA: 10 min)",
+      "reason": "Assignment changed because the original route became unavailable (Road blockage at Prakasam Barrage)."
+    },
     {
       "id": "AUD-01",
       "timestamp": "2026-10-03T06:00:00.000Z",
@@ -730,6 +834,24 @@
     }
   ],
   "alerts": [
+    {
+      "id": "ALT-05",
+      "type": "info",
+      "title": "🚚 Operation OP-102 Dispatched",
+      "message": "Red Cross Emergency Paramedics dispatched via Ambulance AMB-01 (ALS) carrying 50 Emergency Medical Kits. ETA: 18 min.",
+      "timestamp": "2026-10-03T08:06:19.651Z",
+      "read": false,
+      "actionLink": "deliveries"
+    },
+    {
+      "id": "ALT-04",
+      "type": "critical",
+      "title": "🚨 Road Blockage Detected on OP-101",
+      "message": "Prakasam Barrage route submerged. System automatically rerouted Mobile Water Tanker WT-02 via Kanaka Durga Flyover. New ETA: 10 mins.",
+      "timestamp": "2026-10-03T08:03:11.472Z",
+      "read": false,
+      "actionLink": "tracking"
+    },
     {
       "id": "ALT-01",
       "type": "critical",
