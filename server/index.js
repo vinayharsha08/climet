@@ -185,6 +185,27 @@ app.get('/api/shelters', (req, res) => {
   res.json(db.getShelters());
 });
 
+app.post('/api/shelters', (req, res) => {
+  try {
+    const { userRole, ...data } = req.body;
+    const newShelter = db.createShelter(data, userRole);
+    res.status(201).json(newShelter);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
+app.put('/api/shelters/:id', (req, res) => {
+  try {
+    const { userRole, ...updates } = req.body;
+    const updated = db.updateShelter(req.params.id, updates, userRole);
+    if (!updated) return res.status(404).json({ error: 'Shelter not found' });
+    res.json(updated);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
 // --- DELIVERIES ---
 app.get('/api/deliveries', (req, res) => {
   res.json(db.data.deliveries);

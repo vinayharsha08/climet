@@ -81,6 +81,16 @@ export const api = {
   getTeams: () => fetchJson<ResponseTeam[]>('/teams'),
   getVehicles: () => fetchJson<Vehicle[]>('/vehicles'),
   getShelters: () => fetchJson<Shelter[]>('/shelters'),
+  createShelter: (data: Partial<Shelter>, userRole: UserRole) =>
+    fetchJson<Shelter>('/shelters', {
+      method: 'POST',
+      body: JSON.stringify({ ...data, userRole }),
+    }),
+  updateShelter: (id: string, data: Partial<Shelter> & { updateReason?: string }, userRole: UserRole) =>
+    fetchJson<Shelter>(`/shelters/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify({ ...data, userRole }),
+    }),
 
   // Deliveries
   getDeliveries: () => fetchJson<DeliveryOperation[]>('/deliveries'),

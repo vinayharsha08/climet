@@ -289,6 +289,104 @@ class EmergencyDatabase {
     return this.data.shelters;
   }
 
+  createShelter(shelterData, role = 'Command Center Admin') {
+    const id = `SHL-${String(this.data.shelters.length + 1).padStart(2, '0')}`;
+    const capacity = Number(shelterData.capacity) || 300;
+    const occupied = Number(shelterData.occupied) || 0;
+    const availableCapacity = Math.max(0, capacity - occupied);
+
+    let status = 'Available';
+    if (occupied >= capacity) {
+      status = 'Full';
+    } else if (occupied / capacity >= 0.9) {
+      status = 'Near Capacity';
+    }
+
+    const facilities = Array.isArray(shelterData.facilities)
+      ? shelterData.facilities
+      : typeof shelterData.facilities === 'string'
+      ? shelterData.facilities.split(',').map((f) => f.trim()).filter(Boolean)
+      : ['Clean Drinking Water', 'Basic Medical Post'];
+
+    const newShelter = {
+      id,
+      name: shelterData.name || 'New Relief Camp',
+      location: shelterData.location || 'Vijayawada Urban Sector',
+      coordinates: shelterData.coordinates || { lat: 16.512, lng: 80.63 },
+      capacity,
+      occupied,
+      availableCapacity,
+      status,
+      facilities,
+      manager: shelterData.manager || 'Camp Coordinator',
+      contact: shelterData.contact || '+91-866-2400000',
+    };
+
+    this.data.shelters.push(newShelter);
+
+    this.logAudit({
+      userRole: role,
+      action: 'Shelter Facility Registered',
+      entity: 'Shelter',
+      entityId: id,
+      previousValue: null,
+      newValue: `${newShelter.name} (Capacity: ${capacity})`,
+      reason: `Activated as relief facility in ${newShelter.location} with ${availableCapacity} available beds.`,
+    });
+
+    this.save();
+    return newShelter;
+  }
+
+  updateShelter(id, updates, role = 'Command Center Admin') {
+    const shelter = this.data.shelters.find((s) => s.id === id);
+    if (!shelter) return null;
+
+    const oldSnapshot = {
+      capacity: shelter.capacity,
+      occupied: shelter.occupied,
+      status: shelter.status,
+    };
+
+    if (updates.name !== undefined) shelter.name = updates.name;
+    if (updates.location !== undefined) shelter.location = updates.location;
+    if (updates.capacity !== undefined) shelter.capacity = Number(updates.capacity);
+    if (updates.occupied !== undefined) shelter.occupied = Number(updates.occupied);
+    if (updates.manager !== undefined) shelter.manager = updates.manager;
+    if (updates.contact !== undefined) shelter.contact = updates.contact;
+
+    if (updates.facilities !== undefined) {
+      shelter.facilities = Array.isArray(updates.facilities)
+        ? updates.facilities
+        : typeof updates.facilities === 'string'
+        ? updates.facilities.split(',').map((f) => f.trim()).filter(Boolean)
+        : shelter.facilities;
+    }
+
+    shelter.availableCapacity = Math.max(0, shelter.capacity - shelter.occupied);
+
+    if (shelter.occupied >= shelter.capacity) {
+      shelter.status = 'Full';
+    } else if (shelter.occupied / shelter.capacity >= 0.9) {
+      shelter.status = 'Near Capacity';
+    } else {
+      shelter.status = 'Available';
+    }
+
+    this.logAudit({
+      userRole: role,
+      action: 'Shelter Details Modified',
+      entity: 'Shelter',
+      entityId: id,
+      previousValue: `Occupied: ${oldSnapshot.occupied}/${oldSnapshot.capacity} (${oldSnapshot.status})`,
+      newValue: `Occupied: ${shelter.occupied}/${shelter.capacity} (${shelter.status})`,
+      reason: updates.updateReason || 'Camp capacity or facility modification.',
+    });
+
+    this.save();
+    return shelter;
+  }
+
   getOrganizations() {
     return this.data.organizations;
   }
