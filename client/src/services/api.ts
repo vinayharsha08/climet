@@ -13,141 +13,327 @@ import {
   Organization,
   UserRole,
 } from '../types';
+import { clientStore } from './clientStore';
 
 const API_BASE = '/api';
+let isOfflineMode = false;
+
+// Quick probe on initialization to detect if serverless or Express backend is reachable
+if (typeof window !== 'undefined') {
+  fetch(`${API_BASE}/incidents`, { method: 'GET' })
+    .then((res) => {
+      const contentType = res.headers.get('content-type') || '';
+      if (!res.ok || contentType.includes('text/html')) {
+        isOfflineMode = true;
+        console.info('🌐 Static / CDN Hosting detected: Activated in-browser Disaster Management Engine.');
+      }
+    })
+    .catch(() => {
+      isOfflineMode = true;
+      console.info('🌐 Standalone Client Mode: Activated in-browser Disaster Management Engine.');
+    });
+}
 
 async function fetchJson<T>(url: string, options?: RequestInit): Promise<T> {
-  const res = await fetch(`${API_BASE}${url}`, {
-    ...options,
-    headers: {
-      'Content-Type': 'application/json',
-      ...options?.headers,
-    },
-  });
-
-  if (!res.ok) {
-    const errorBody = await res.json().catch(() => ({ error: res.statusText }));
-    throw new Error(errorBody.error || `HTTP error ${res.status}`);
+  if (isOfflineMode) {
+    throw new Error('OFFLINE_FALLBACK');
   }
 
-  return res.json();
+  try {
+    const res = await fetch(`${API_BASE}${url}`, {
+      ...options,
+      headers: {
+        'Content-Type': 'application/json',
+        ...options?.headers,
+      },
+    });
+
+    const contentType = res.headers.get('content-type') || '';
+
+    // If static server redirected to index.html (SPA redirect) or returned 404
+    if (!res.ok || contentType.includes('text/html')) {
+      isOfflineMode = true;
+      const errorBody = await res.json().catch(() => ({ error: res.statusText || `HTTP ${res.status}` }));
+      throw new Error(errorBody.error || `HTTP error ${res.status}`);
+    }
+
+    return await res.json();
+  } catch (err: any) {
+    isOfflineMode = true;
+    throw err;
+  }
 }
 
 export const api = {
+  // Mode info
+  isOffline: () => isOfflineMode,
+
   // Dashboard
-  getDashboardStats: () => fetchJson<DashboardStats>('/dashboard/stats'),
+  getDashboardStats: async (): Promise<DashboardStats> => {
+    try {
+      return await fetchJson<DashboardStats>('/dashboard/stats');
+    } catch {
+      return clientStore.getDashboardStats();
+    }
+  },
 
   // Incidents
-  getIncidents: () => fetchJson<Incident[]>('/incidents'),
-  createIncident: (data: Partial<Incident>, userRole: UserRole) =>
-    fetchJson<Incident>('/incidents', {
-      method: 'POST',
-      body: JSON.stringify({ ...data, userRole }),
-    }),
-  updateIncident: (id: string, data: Partial<Incident>, userRole: UserRole) =>
-    fetchJson<Incident>(`/incidents/${id}`, {
-      method: 'PUT',
-      body: JSON.stringify({ ...data, userRole }),
-    }),
+  getIncidents: async (): Promise<Incident[]> => {
+    try {
+      return await fetchJson<Incident[]>('/incidents');
+    } catch {
+      return clientStore.getIncidents();
+    }
+  },
+  createIncident: async (data: Partial<Incident>, userRole: UserRole): Promise<Incident> => {
+    try {
+      return await fetchJson<Incident>('/incidents', {
+        method: 'POST',
+        body: JSON.stringify({ ...data, userRole }),
+      });
+    } catch {
+      return clientStore.createIncident(data, userRole);
+    }
+  },
+  updateIncident: async (id: string, data: Partial<Incident>, userRole: UserRole): Promise<Incident> => {
+    try {
+      return await fetchJson<Incident>(`/incidents/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify({ ...data, userRole }),
+      });
+    } catch {
+      return clientStore.updateIncident(id, data, userRole);
+    }
+  },
 
   // Requests
-  getRequests: () => fetchJson<EmergencyRequest[]>('/requests'),
-  createRequest: (data: Partial<EmergencyRequest>, userRole: UserRole) =>
-    fetchJson<EmergencyRequest>('/requests', {
-      method: 'POST',
-      body: JSON.stringify({ ...data, userRole }),
-    }),
-  updateRequest: (id: string, data: Partial<EmergencyRequest>, userRole: UserRole) =>
-    fetchJson<EmergencyRequest>(`/requests/${id}`, {
-      method: 'PUT',
-      body: JSON.stringify({ ...data, userRole }),
-    }),
-  classifyPriority: (affectedPeople: number, category: string, requestedResource: string) =>
-    fetchJson<{ priority: string; reason: string; score: number }>('/requests/classify-priority', {
-      method: 'POST',
-      body: JSON.stringify({ affectedPeople, category, requestedResource }),
-    }),
+  getRequests: async (): Promise<EmergencyRequest[]> => {
+    try {
+      return await fetchJson<EmergencyRequest[]>('/requests');
+    } catch {
+      return clientStore.getRequests();
+    }
+  },
+  createRequest: async (data: Partial<EmergencyRequest>, userRole: UserRole): Promise<EmergencyRequest> => {
+    try {
+      return await fetchJson<EmergencyRequest>('/requests', {
+        method: 'POST',
+        body: JSON.stringify({ ...data, userRole }),
+      });
+    } catch {
+      return clientStore.createRequest(data, userRole);
+    }
+  },
+  updateRequest: async (id: string, data: Partial<EmergencyRequest>, userRole: UserRole): Promise<EmergencyRequest> => {
+    try {
+      return await fetchJson<EmergencyRequest>(`/requests/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify({ ...data, userRole }),
+      });
+    } catch {
+      return clientStore.updateRequest(id, data, userRole);
+    }
+  },
+  classifyPriority: async (affectedPeople: number, category: string, requestedResource: string): Promise<{ priority: string; reason: string; score: number }> => {
+    try {
+      return await fetchJson<{ priority: string; reason: string; score: number }>('/requests/classify-priority', {
+        method: 'POST',
+        body: JSON.stringify({ affectedPeople, category, requestedResource }),
+      });
+    } catch {
+      return clientStore.classifyPriority(affectedPeople, category, requestedResource);
+    }
+  },
 
   // Resources
-  getResources: () => fetchJson<ResourceInventory[]>('/resources'),
-  updateResourceStock: (id: string, delta: number, type: 'add' | 'set', userRole: UserRole) =>
-    fetchJson<ResourceInventory>(`/resources/${id}/stock`, {
-      method: 'POST',
-      body: JSON.stringify({ delta, type, userRole }),
-    }),
+  getResources: async (): Promise<ResourceInventory[]> => {
+    try {
+      return await fetchJson<ResourceInventory[]>('/resources');
+    } catch {
+      return clientStore.getResources();
+    }
+  },
+  updateResourceStock: async (id: string, delta: number, type: 'add' | 'set', userRole: UserRole): Promise<ResourceInventory> => {
+    try {
+      return await fetchJson<ResourceInventory>(`/resources/${id}/stock`, {
+        method: 'POST',
+        body: JSON.stringify({ delta, type, userRole }),
+      });
+    } catch {
+      return clientStore.updateResourceStock(id, delta, type, userRole);
+    }
+  },
 
   // Teams, Vehicles, Shelters, Orgs
-  getOrganizations: () => fetchJson<Organization[]>('/organizations'),
-  getTeams: () => fetchJson<ResponseTeam[]>('/teams'),
-  getVehicles: () => fetchJson<Vehicle[]>('/vehicles'),
-  getShelters: () => fetchJson<Shelter[]>('/shelters'),
-  createShelter: (data: Partial<Shelter>, userRole: UserRole) =>
-    fetchJson<Shelter>('/shelters', {
-      method: 'POST',
-      body: JSON.stringify({ ...data, userRole }),
-    }),
-  updateShelter: (id: string, data: Partial<Shelter> & { updateReason?: string }, userRole: UserRole) =>
-    fetchJson<Shelter>(`/shelters/${id}`, {
-      method: 'PUT',
-      body: JSON.stringify({ ...data, userRole }),
-    }),
+  getOrganizations: async (): Promise<Organization[]> => {
+    try {
+      return await fetchJson<Organization[]>('/organizations');
+    } catch {
+      return clientStore.getOrganizations();
+    }
+  },
+  getTeams: async (): Promise<ResponseTeam[]> => {
+    try {
+      return await fetchJson<ResponseTeam[]>('/teams');
+    } catch {
+      return clientStore.getTeams();
+    }
+  },
+  getVehicles: async (): Promise<Vehicle[]> => {
+    try {
+      return await fetchJson<Vehicle[]>('/vehicles');
+    } catch {
+      return clientStore.getVehicles();
+    }
+  },
+  getShelters: async (): Promise<Shelter[]> => {
+    try {
+      return await fetchJson<Shelter[]>('/shelters');
+    } catch {
+      return clientStore.getShelters();
+    }
+  },
+  createShelter: async (data: Partial<Shelter>, userRole: UserRole): Promise<Shelter> => {
+    try {
+      return await fetchJson<Shelter>('/shelters', {
+        method: 'POST',
+        body: JSON.stringify({ ...data, userRole }),
+      });
+    } catch {
+      return clientStore.createShelter(data, userRole);
+    }
+  },
+  updateShelter: async (id: string, data: Partial<Shelter> & { updateReason?: string }, userRole: UserRole): Promise<Shelter> => {
+    try {
+      return await fetchJson<Shelter>(`/shelters/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify({ ...data, userRole }),
+      });
+    } catch {
+      return clientStore.updateShelter(id, data, userRole);
+    }
+  },
 
   // Deliveries
-  getDeliveries: () => fetchJson<DeliveryOperation[]>('/deliveries'),
-  stepDelivery: (id: string) =>
-    fetchJson<DeliveryOperation>(`/deliveries/${id}/step`, {
-      method: 'POST',
-    }),
+  getDeliveries: async (): Promise<DeliveryOperation[]> => {
+    try {
+      return await fetchJson<DeliveryOperation[]>('/deliveries');
+    } catch {
+      return clientStore.getDeliveries();
+    }
+  },
+  stepDelivery: async (id: string): Promise<DeliveryOperation> => {
+    try {
+      return await fetchJson<DeliveryOperation>(`/deliveries/${id}/step`, {
+        method: 'POST',
+      });
+    } catch {
+      return clientStore.stepDeliveryMovement(id);
+    }
+  },
 
   // Allocation Engine
-  recommendAllocation: (requestId: string) =>
-    fetchJson<AllocationRecommendation>('/allocations/recommend', {
-      method: 'POST',
-      body: JSON.stringify({ requestId }),
-    }),
-  assignAllocation: (params: {
+  recommendAllocation: async (requestId: string): Promise<AllocationRecommendation> => {
+    try {
+      return await fetchJson<AllocationRecommendation>('/allocations/recommend', {
+        method: 'POST',
+        body: JSON.stringify({ requestId }),
+      });
+    } catch {
+      return clientStore.recommendAllocation(requestId);
+    }
+  },
+  assignAllocation: async (params: {
     requestId: string;
     teamId: string;
     vehicleId: string;
     allocationPlan: any[];
     userRole: UserRole;
-  }) =>
-    fetchJson<{ delivery: DeliveryOperation; request: EmergencyRequest }>('/allocations/assign', {
-      method: 'POST',
-      body: JSON.stringify(params),
-    }),
+  }): Promise<{ delivery: DeliveryOperation; request: EmergencyRequest }> => {
+    try {
+      return await fetchJson<{ delivery: DeliveryOperation; request: EmergencyRequest }>('/allocations/assign', {
+        method: 'POST',
+        body: JSON.stringify(params),
+      });
+    } catch {
+      return clientStore.assignAllocation(params);
+    }
+  },
 
   // Simulations
-  simulateRoadBlockage: (deliveryId?: string, userRole: UserRole = 'Field Officer') =>
-    fetchJson<{ delivery: DeliveryOperation; explanation: any }>('/simulations/road-blockage', {
-      method: 'POST',
-      body: JSON.stringify({ deliveryId, userRole }),
-    }),
-  simulateResourceShortage: (data: { resourceType?: string; quantity?: number }, userRole: UserRole = 'Command Center Admin') =>
-    fetchJson<any>('/simulations/resource-shortage', {
-      method: 'POST',
-      body: JSON.stringify({ ...data, userRole }),
-    }),
-  simulateShelterOvercrowd: (shelterId: string = 'SHL-02', userRole: UserRole = 'Field Officer') =>
-    fetchJson<any>('/simulations/shelter-overcrowd', {
-      method: 'POST',
-      body: JSON.stringify({ shelterId, userRole }),
-    }),
+  simulateRoadBlockage: async (deliveryId?: string, userRole: UserRole = 'Field Officer'): Promise<{ delivery: DeliveryOperation; explanation: any }> => {
+    try {
+      return await fetchJson<{ delivery: DeliveryOperation; explanation: any }>('/simulations/road-blockage', {
+        method: 'POST',
+        body: JSON.stringify({ deliveryId, userRole }),
+      });
+    } catch {
+      return clientStore.simulateRoadBlockage(deliveryId, userRole);
+    }
+  },
+  simulateResourceShortage: async (data: { resourceType?: string; quantity?: number }, userRole: UserRole = 'Command Center Admin'): Promise<any> => {
+    try {
+      return await fetchJson<any>('/simulations/resource-shortage', {
+        method: 'POST',
+        body: JSON.stringify({ ...data, userRole }),
+      });
+    } catch {
+      return clientStore.simulateResourceShortage(data, userRole);
+    }
+  },
+  simulateShelterOvercrowd: async (shelterId: string = 'SHL-02', userRole: UserRole = 'Field Officer'): Promise<any> => {
+    try {
+      return await fetchJson<any>('/simulations/shelter-overcrowd', {
+        method: 'POST',
+        body: JSON.stringify({ shelterId, userRole }),
+      });
+    } catch {
+      return clientStore.simulateShelterOvercrowd(shelterId, userRole);
+    }
+  },
 
   // Audit Logs & Alerts
-  getAuditLogs: () => fetchJson<AuditLog[]>('/audit-logs'),
-  getAlerts: () => fetchJson<SystemAlert[]>('/alerts'),
-  markAlertRead: (id: string) =>
-    fetchJson<SystemAlert>(`/alerts/${id}/read`, {
-      method: 'POST',
-    }),
+  getAuditLogs: async (): Promise<AuditLog[]> => {
+    try {
+      return await fetchJson<AuditLog[]>('/audit-logs');
+    } catch {
+      return clientStore.getAuditLogs();
+    }
+  },
+  getAlerts: async (): Promise<SystemAlert[]> => {
+    try {
+      return await fetchJson<SystemAlert[]>('/alerts');
+    } catch {
+      return clientStore.getAlerts();
+    }
+  },
+  markAlertRead: async (id: string): Promise<SystemAlert> => {
+    try {
+      return await fetchJson<SystemAlert>(`/alerts/${id}/read`, {
+        method: 'POST',
+      });
+    } catch {
+      return clientStore.markAlertRead(id);
+    }
+  },
 
   // AI SitRep
-  getAiSitrep: () =>
-    fetchJson<{ sitrep: string; source: string }>('/ai/situation-report', {
-      method: 'POST',
-    }),
+  getAiSitrep: async (): Promise<{ sitrep: string; source: string }> => {
+    try {
+      return await fetchJson<{ sitrep: string; source: string }>('/ai/situation-report', {
+        method: 'POST',
+      });
+    } catch {
+      return clientStore.getAiSitrep();
+    }
+  },
 
   // Demo Reset
-  resetData: () => fetchJson<{ message: string; data: any }>('/reset-data', { method: 'POST' }),
+  resetData: async (): Promise<{ message: string; data: any }> => {
+    try {
+      return await fetchJson<{ message: string; data: any }>('/reset-data', { method: 'POST' });
+    } catch {
+      return clientStore.resetData();
+    }
+  },
 };

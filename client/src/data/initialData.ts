@@ -1,4 +1,4 @@
-{
+export const initialData = {
   "organizations": [
     {
       "id": "ORG-01",
@@ -35,18 +35,13 @@
       "disasterType": "Flood Emergency",
       "zone": "Zone A",
       "location": "Bhavanipuram & Krishna Riverbank",
-      "coordinates": {
-        "lat": 16.5185,
-        "lng": 80.5982
-      },
+      "coordinates": { "lat": 16.5185, "lng": 80.5982 },
       "severity": "Critical",
       "affectedPopulation": 1200,
       "waterLevel": "+2.8m above danger mark",
       "status": "Active",
       "description": "Heavy flood discharge from Prakasam Barrage inundated low-lying settlements. Water levels reached 6 feet in residential pockets.",
-      "createdAt": "2026-10-03T06:00:00.000Z",
-      "updateReason": "Status marked as Active",
-      "updatedAt": "2026-10-03T18:37:42.415Z"
+      "createdAt": "2026-10-03T06:00:00.000Z"
     },
     {
       "id": "INC-02",
@@ -54,10 +49,7 @@
       "disasterType": "Flood Emergency",
       "zone": "Zone B",
       "location": "One Town Old Market Area",
-      "coordinates": {
-        "lat": 16.512,
-        "lng": 80.6125
-      },
+      "coordinates": { "lat": 16.5120, "lng": 80.6125 },
       "severity": "High",
       "affectedPopulation": 650,
       "waterLevel": "+1.7m above normal",
@@ -71,10 +63,7 @@
       "disasterType": "Flood Emergency",
       "zone": "Zone C",
       "location": "Auto Nagar Industrial Enclave",
-      "coordinates": {
-        "lat": 16.495,
-        "lng": 80.665
-      },
+      "coordinates": { "lat": 16.4950, "lng": 80.6650 },
       "severity": "Medium",
       "affectedPopulation": 320,
       "waterLevel": "+0.9m flash accumulation",
@@ -95,10 +84,7 @@
       "allocatedQuantity": 30,
       "consumedQuantity": 50,
       "warehouseLocation": "Central Logistics Hub, Gunadala",
-      "coordinates": {
-        "lat": 16.514,
-        "lng": 80.655
-      },
+      "coordinates": { "lat": 16.5140, "lng": 80.6550 },
       "expiry": "2027-12-31",
       "status": "Available"
     },
@@ -108,15 +94,12 @@
       "orgName": "Indian Red Cross Society (IRCS)",
       "type": "Emergency Medical Kits",
       "category": "Medical",
-      "availableQuantity": 140,
+      "availableQuantity": 90,
       "reservedQuantity": 10,
-      "allocatedQuantity": 70,
+      "allocatedQuantity": 20,
       "consumedQuantity": 40,
       "warehouseLocation": "Red Cross Depot, Governorpet",
-      "coordinates": {
-        "lat": 16.511,
-        "lng": 80.63
-      },
+      "coordinates": { "lat": 16.5110, "lng": 80.6300 },
       "expiry": "2027-08-31",
       "status": "Available"
     },
@@ -131,10 +114,7 @@
       "allocatedQuantity": 200,
       "consumedQuantity": 500,
       "warehouseLocation": "Community Center, Auto Nagar",
-      "coordinates": {
-        "lat": 16.495,
-        "lng": 80.665
-      },
+      "coordinates": { "lat": 16.4950, "lng": 80.6650 },
       "expiry": "2026-10-06",
       "status": "Available"
     },
@@ -144,15 +124,12 @@
       "orgName": "National Disaster Response Force (NDRF)",
       "type": "Food Packets",
       "category": "Food",
-      "availableQuantity": 130,
+      "availableQuantity": 200,
       "reservedQuantity": 0,
-      "allocatedQuantity": 170,
+      "allocatedQuantity": 100,
       "consumedQuantity": 400,
       "warehouseLocation": "Central Logistics Hub, Gunadala",
-      "coordinates": {
-        "lat": 16.514,
-        "lng": 80.655
-      },
+      "coordinates": { "lat": 16.5140, "lng": 80.6550 },
       "expiry": "2026-10-07",
       "status": "Available"
     },
@@ -167,10 +144,7 @@
       "allocatedQuantity": 3,
       "consumedQuantity": 0,
       "warehouseLocation": "Central Logistics Hub, Gunadala",
-      "coordinates": {
-        "lat": 16.514,
-        "lng": 80.655
-      },
+      "coordinates": { "lat": 16.5140, "lng": 80.6550 },
       "expiry": null,
       "status": "Available"
     },
@@ -180,15 +154,12 @@
       "orgName": "Indian Red Cross Society (IRCS)",
       "type": "Drinking Water Bottles (20L)",
       "category": "Water",
-      "availableQuantity": 0,
+      "availableQuantity": 600,
       "reservedQuantity": 50,
-      "allocatedQuantity": 750,
+      "allocatedQuantity": 150,
       "consumedQuantity": 400,
       "warehouseLocation": "Red Cross Depot, Governorpet",
-      "coordinates": {
-        "lat": 16.511,
-        "lng": 80.63
-      },
+      "coordinates": { "lat": 16.5110, "lng": 80.6300 },
       "expiry": "2027-01-01",
       "status": "Available"
     },
@@ -203,10 +174,7 @@
       "allocatedQuantity": 10,
       "consumedQuantity": 20,
       "warehouseLocation": "Red Cross Depot, Governorpet",
-      "coordinates": {
-        "lat": 16.511,
-        "lng": 80.63
-      },
+      "coordinates": { "lat": 16.5110, "lng": 80.6300 },
       "expiry": "2029-05-01",
       "status": "Available"
     },
@@ -221,10 +189,7 @@
       "allocatedQuantity": 80,
       "consumedQuantity": 250,
       "warehouseLocation": "Community Center, Auto Nagar",
-      "coordinates": {
-        "lat": 16.495,
-        "lng": 80.665
-      },
+      "coordinates": { "lat": 16.4950, "lng": 80.6650 },
       "expiry": null,
       "status": "Available"
     }
@@ -238,15 +203,12 @@
       "capacity": 500,
       "capacityUnit": "kg",
       "currentLocation": "Red Cross Depot, Governorpet",
-      "coordinates": {
-        "lat": 16.511,
-        "lng": 80.63
-      },
-      "status": "En Route",
+      "coordinates": { "lat": 16.5110, "lng": 80.6300 },
+      "status": "Available",
       "driver": "K. Venkat Rao",
-      "assignedTeamId": "TEAM-03",
-      "destination": "Bhavanipuram Community Health Post (Zone A)",
-      "eta": "18 mins",
+      "assignedTeamId": null,
+      "destination": null,
+      "eta": null,
       "fuelLevel": 92
     },
     {
@@ -257,15 +219,12 @@
       "capacity": 2500,
       "capacityUnit": "kg",
       "currentLocation": "Central Logistics Hub, Gunadala",
-      "coordinates": {
-        "lat": 16.514,
-        "lng": 80.655
-      },
-      "status": "En Route",
+      "coordinates": { "lat": 16.5140, "lng": 80.6550 },
+      "status": "Available",
       "driver": "M. Suresh",
-      "assignedTeamId": "TEAM-02",
-      "destination": "near temple",
-      "eta": "18 mins",
+      "assignedTeamId": null,
+      "destination": null,
+      "eta": null,
       "fuelLevel": 85
     },
     {
@@ -276,10 +235,7 @@
       "capacity": 4000,
       "capacityUnit": "Liters",
       "currentLocation": "Red Cross Depot, Governorpet",
-      "coordinates": {
-        "lat": 16.511,
-        "lng": 80.63
-      },
+      "coordinates": { "lat": 16.5110, "lng": 80.6300 },
       "status": "Available",
       "driver": "P. Ramesh Babu",
       "assignedTeamId": null,
@@ -295,10 +251,7 @@
       "capacity": 1200,
       "capacityUnit": "kg",
       "currentLocation": "Prakasam Barrage North Checkpost",
-      "coordinates": {
-        "lat": 16.508,
-        "lng": 80.606
-      },
+      "coordinates": { "lat": 16.5080, "lng": 80.6060 },
       "status": "Available",
       "driver": "Sub-Inspector Anand",
       "assignedTeamId": null,
@@ -314,10 +267,7 @@
       "capacity": 1500,
       "capacityUnit": "kg",
       "currentLocation": "Auto Nagar Relief Point",
-      "coordinates": {
-        "lat": 16.495,
-        "lng": 80.665
-      },
+      "coordinates": { "lat": 16.4950, "lng": 80.6650 },
       "status": "Available",
       "driver": "G. Prakash",
       "assignedTeamId": null,
@@ -334,17 +284,9 @@
       "teamType": "Medical",
       "membersCount": 6,
       "leader": "Dr. R. K. Sharma",
-      "skills": [
-        "Emergency Triage",
-        "Trauma Surgery",
-        "Infection Control",
-        "ALS Certified"
-      ],
+      "skills": ["Emergency Triage", "Trauma Surgery", "Infection Control", "ALS Certified"],
       "currentLocation": "Central Logistics Hub, Gunadala",
-      "coordinates": {
-        "lat": 16.514,
-        "lng": 80.655
-      },
+      "coordinates": { "lat": 16.5140, "lng": 80.6550 },
       "availability": "Available",
       "currentAssignment": null,
       "workload": "Low (0 active assignments)"
@@ -356,19 +298,11 @@
       "teamType": "Rescue",
       "membersCount": 8,
       "leader": "Inspector Rajesh Kumar",
-      "skills": [
-        "Swift Water Rescue",
-        "Inflatable Boat Navigation",
-        "Night Search & Rescue",
-        "Paramedic"
-      ],
+      "skills": ["Swift Water Rescue", "Inflatable Boat Navigation", "Night Search & Rescue", "Paramedic"],
       "currentLocation": "Prakasam Barrage North",
-      "coordinates": {
-        "lat": 16.508,
-        "lng": 80.606
-      },
-      "availability": "Assigned",
-      "currentAssignment": "Operation for REQ-108",
+      "coordinates": { "lat": 16.5080, "lng": 80.6060 },
+      "availability": "Available",
+      "currentAssignment": null,
       "workload": "Low (0 active assignments)"
     },
     {
@@ -378,19 +312,11 @@
       "teamType": "Medical",
       "membersCount": 5,
       "leader": "Sister Mary Joseph",
-      "skills": [
-        "First-aid",
-        "Pediatric Care",
-        "Disaster Nursing",
-        "Vaccination"
-      ],
+      "skills": ["First-aid", "Pediatric Care", "Disaster Nursing", "Vaccination"],
       "currentLocation": "Red Cross Depot, Governorpet",
-      "coordinates": {
-        "lat": 16.511,
-        "lng": 80.63
-      },
-      "availability": "Assigned",
-      "currentAssignment": "Operation for REQ-101",
+      "coordinates": { "lat": 16.5110, "lng": 80.6300 },
+      "availability": "Available",
+      "currentAssignment": null,
       "workload": "Moderate (1 standby task)"
     },
     {
@@ -400,16 +326,9 @@
       "teamType": "Food Distribution",
       "membersCount": 12,
       "leader": "B. Satyanarayana",
-      "skills": [
-        "Crowd Management",
-        "Bulk Meal Logistics",
-        "Community Outreach"
-      ],
+      "skills": ["Crowd Management", "Bulk Meal Logistics", "Community Outreach"],
       "currentLocation": "Community Center, Auto Nagar",
-      "coordinates": {
-        "lat": 16.495,
-        "lng": 80.665
-      },
+      "coordinates": { "lat": 16.4950, "lng": 80.6650 },
       "availability": "Available",
       "currentAssignment": null,
       "workload": "Low (0 active assignments)"
@@ -420,98 +339,48 @@
       "id": "SHL-01",
       "name": "Indira Gandhi Stadium Relief Camp",
       "location": "MG Road, Vijayawada Central",
-      "coordinates": {
-        "lat": 16.5075,
-        "lng": 80.6405
-      },
+      "coordinates": { "lat": 16.5075, "lng": 80.6405 },
       "capacity": 800,
       "occupied": 520,
       "availableCapacity": 280,
       "status": "Available",
-      "facilities": [
-        "Medical Post",
-        "Mega Kitchen",
-        "Power Backup",
-        "Separated Family Dorms"
-      ],
-      "manager": "Sub-Collector B>Dinesh IAS",
-      "contact": "+91 7780403422"
+      "facilities": ["Medical Post", "Mega Kitchen", "Power Backup", "Separated Family Dorms"],
+      "manager": "Sub-Collector Srikanth IAS",
+      "contact": "+91-866-2475510"
     },
     {
       "id": "SHL-02",
       "name": "Govt High School Bhavanipuram",
       "location": "Main Road, Bhavanipuram, Zone A",
-      "coordinates": {
-        "lat": 16.521,
-        "lng": 80.596
-      },
+      "coordinates": { "lat": 16.5210, "lng": 80.5960 },
       "capacity": 350,
-      "occupied": 50,
-      "availableCapacity": 300,
-      "status": "Available",
-      "facilities": [
-        "Clean Drinking Water",
-        "Basic First Aid",
-        "Sanitation Blocks"
-      ],
-      "manager": "Headmaster V. Sreekanth Reddy",
-      "contact": "+91 6302725382"
+      "occupied": 338,
+      "availableCapacity": 12,
+      "status": "Near Capacity",
+      "facilities": ["Clean Drinking Water", "Basic First Aid", "Sanitation Blocks"],
+      "manager": "Headmaster V. Prasad",
+      "contact": "+91-866-2410098"
     },
     {
       "id": "SHL-03",
       "name": "Siddhartha College Indoor Arena",
       "location": "Siddhartha Nagar, Moghalrajpuram",
-      "coordinates": {
-        "lat": 16.502,
-        "lng": 80.651
-      },
+      "coordinates": { "lat": 16.5020, "lng": 80.6510 },
       "capacity": 600,
       "occupied": 210,
       "availableCapacity": 390,
       "status": "Available",
-      "facilities": [
-        "Full Indoor Hall",
-        "Emergency Clinic",
-        "Infant Feeding Station",
-        "High Speed Generators"
-      ],
-      "manager": "Peon  sanjay",
-      "contact": "+91 7416661129"
+      "facilities": ["Full Indoor Hall", "Emergency Clinic", "Infant Feeding Station", "High Speed Generators"],
+      "manager": "Prof. K. N. Murthy",
+      "contact": "+91-866-2498877"
     }
   ],
   "requests": [
     {
-      "id": "REQ-108",
-      "incidentId": "INC-01",
-      "location": "near temple",
-      "coordinates": {
-        "lat": 16.518,
-        "lng": 80.605
-      },
-      "requestedResource": "Food Packets",
-      "category": "Water",
-      "quantity": 670,
-      "unit": "Kits",
-      "affectedPeople": 620,
-      "priority": "Critical",
-      "priorityReason": "Extensive mass scale: Affected population (620) exceeds the 500 threshold.",
-      "status": "Allocated",
-      "assignedOrgId": "ORG-02",
-      "assignedTeamId": "TEAM-02",
-      "assignedVehicleId": "VEH-02",
-      "deliveryId": "OP-103",
-      "eta": "18 mins",
-      "notes": "",
-      "createdAt": "2026-10-03T18:56:14.307Z"
-    },
-    {
       "id": "REQ-101",
       "incidentId": "INC-01",
       "location": "Bhavanipuram Community Health Post (Zone A)",
-      "coordinates": {
-        "lat": 16.52,
-        "lng": 80.595
-      },
+      "coordinates": { "lat": 16.5200, "lng": 80.5950 },
       "requestedResource": "Emergency Medical Kits",
       "category": "Medical",
       "quantity": 50,
@@ -519,12 +388,12 @@
       "affectedPeople": 620,
       "priority": "Critical",
       "priorityReason": "Affected people (620) > 500 AND urgent trauma/infection medical kits required for stranded families.",
-      "status": "Allocated",
-      "assignedOrgId": "ORG-02",
-      "assignedTeamId": "TEAM-03",
-      "assignedVehicleId": "VEH-01",
-      "deliveryId": "OP-102",
-      "eta": "18 mins",
+      "status": "Pending",
+      "assignedOrgId": null,
+      "assignedTeamId": null,
+      "assignedVehicleId": null,
+      "deliveryId": null,
+      "eta": null,
       "notes": "Flood water entering ground floor of primary clinic; urgent IV fluids and trauma bandages needed.",
       "createdAt": "2026-10-03T08:00:00.000Z"
     },
@@ -651,122 +520,6 @@
   ],
   "deliveries": [
     {
-      "id": "OP-103",
-      "requestId": "REQ-108",
-      "incidentId": "INC-01",
-      "resourceType": "Food Packets",
-      "quantity": 670,
-      "teamId": "TEAM-02",
-      "teamName": "SDRF Water Rescue Squad 1",
-      "vehicleId": "VEH-02",
-      "vehicleName": "Heavy Relief Truck V-03",
-      "sourceLocation": "Red Cross Depot, Governorpet",
-      "sourceCoordinates": {
-        "lat": 16.511,
-        "lng": 80.63
-      },
-      "destinationLocation": "near temple",
-      "destinationCoordinates": {
-        "lat": 16.518,
-        "lng": 80.605
-      },
-      "status": "En Route",
-      "progressPercent": 50,
-      "currentWayPointIndex": 1,
-      "waypoints": [
-        {
-          "name": "Red Cross Depot, Governorpet",
-          "lat": 16.514,
-          "lng": 80.655,
-          "status": "passed"
-        },
-        {
-          "name": "Prakasam Barrage Approach Checkpoint",
-          "lat": 16.508,
-          "lng": 80.606,
-          "status": "passed"
-        },
-        {
-          "name": "Bhavanipuram Sector Crossing",
-          "lat": 16.516,
-          "lng": 80.6,
-          "status": "pending"
-        },
-        {
-          "name": "near temple",
-          "lat": 16.52,
-          "lng": 80.595,
-          "status": "pending"
-        }
-      ],
-      "originalRoute": "Logistics Hub -> Prakasam Barrage Approach -> Bhavanipuram Sector",
-      "activeRoute": "Logistics Hub -> Prakasam Barrage Approach -> Bhavanipuram Sector",
-      "etaMinutes": 12,
-      "isBlocked": false,
-      "blockageDetails": null,
-      "rerouteReason": null,
-      "startedAt": "2026-10-04T00:38:06.424Z",
-      "completedAt": null
-    },
-    {
-      "id": "OP-102",
-      "requestId": "REQ-101",
-      "incidentId": "INC-01",
-      "resourceType": "Emergency Medical Kits",
-      "quantity": 50,
-      "teamId": "TEAM-03",
-      "teamName": "Red Cross Emergency Paramedics",
-      "vehicleId": "VEH-01",
-      "vehicleName": "Ambulance AMB-01 (ALS)",
-      "sourceLocation": "Red Cross Depot, Governorpet",
-      "sourceCoordinates": {
-        "lat": 16.511,
-        "lng": 80.63
-      },
-      "destinationLocation": "Bhavanipuram Community Health Post (Zone A)",
-      "destinationCoordinates": {
-        "lat": 16.52,
-        "lng": 80.595
-      },
-      "status": "En Route",
-      "progressPercent": 50,
-      "currentWayPointIndex": 1,
-      "waypoints": [
-        {
-          "name": "Red Cross Depot, Governorpet",
-          "lat": 16.514,
-          "lng": 80.655,
-          "status": "passed"
-        },
-        {
-          "name": "Prakasam Barrage Approach Checkpoint",
-          "lat": 16.508,
-          "lng": 80.606,
-          "status": "passed"
-        },
-        {
-          "name": "Bhavanipuram Sector Crossing",
-          "lat": 16.516,
-          "lng": 80.6,
-          "status": "pending"
-        },
-        {
-          "name": "Bhavanipuram Community Health Post (Zone A)",
-          "lat": 16.52,
-          "lng": 80.595,
-          "status": "pending"
-        }
-      ],
-      "originalRoute": "Logistics Hub -> Prakasam Barrage Approach -> Bhavanipuram Sector",
-      "activeRoute": "Logistics Hub -> Prakasam Barrage Approach -> Bhavanipuram Sector",
-      "etaMinutes": 12,
-      "isBlocked": false,
-      "blockageDetails": null,
-      "rerouteReason": null,
-      "startedAt": "2026-10-03T18:21:44.376Z",
-      "completedAt": null
-    },
-    {
       "id": "OP-101",
       "requestId": "REQ-099",
       "incidentId": "INC-01",
@@ -777,43 +530,17 @@
       "vehicleId": "VEH-03",
       "vehicleName": "Mobile Water Tanker WT-02",
       "sourceLocation": "Red Cross Depot, Governorpet",
-      "sourceCoordinates": {
-        "lat": 16.511,
-        "lng": 80.63
-      },
+      "sourceCoordinates": { "lat": 16.5110, "lng": 80.6300 },
       "destinationLocation": "Govt High School Bhavanipuram (Shelter S-02)",
-      "destinationCoordinates": {
-        "lat": 16.521,
-        "lng": 80.596
-      },
+      "destinationCoordinates": { "lat": 16.5210, "lng": 80.5960 },
       "status": "Delivered",
       "progressPercent": 100,
       "currentWayPointIndex": 3,
       "waypoints": [
-        {
-          "name": "Red Cross Depot",
-          "lat": 16.511,
-          "lng": 80.63,
-          "status": "passed"
-        },
-        {
-          "name": "Besant Road Crossing",
-          "lat": 16.5125,
-          "lng": 80.622,
-          "status": "passed"
-        },
-        {
-          "name": "Prakasam Flyover Approach",
-          "lat": 16.516,
-          "lng": 80.608,
-          "status": "passed"
-        },
-        {
-          "name": "Shelter S-02 Bhavanipuram",
-          "lat": 16.521,
-          "lng": 80.596,
-          "status": "passed"
-        }
+        { "name": "Red Cross Depot", "lat": 16.5110, "lng": 80.6300, "status": "passed" },
+        { "name": "Besant Road Crossing", "lat": 16.5125, "lng": 80.6220, "status": "passed" },
+        { "name": "Prakasam Flyover Approach", "lat": 16.5160, "lng": 80.6080, "status": "passed" },
+        { "name": "Shelter S-02 Bhavanipuram", "lat": 16.5210, "lng": 80.5960, "status": "passed" }
       ],
       "originalRoute": "Governorpet -> Prakasam Flyover -> Bhavanipuram",
       "activeRoute": "Governorpet -> Prakasam Flyover -> Bhavanipuram",
@@ -826,193 +553,6 @@
     }
   ],
   "auditLogs": [
-    {
-      "id": "AUD-21",
-      "timestamp": "2026-10-04T00:38:06.424Z",
-      "userRole": "Command Center Admin",
-      "action": "Resource Allocation & Delivery Dispatched",
-      "entity": "Delivery",
-      "entityId": "OP-103",
-      "previousValue": "Unassigned",
-      "newValue": "Dispatched Heavy Relief Truck V-03 with SDRF Water Rescue Squad 1 to near temple",
-      "reason": "Automated recommendation approved. 670 units allocated from Red Cross Depot, Governorpet."
-    },
-    {
-      "id": "AUD-20",
-      "timestamp": "2026-10-03T18:56:14.307Z",
-      "userRole": "Command Center Admin",
-      "action": "Emergency Request Created",
-      "entity": "Request",
-      "entityId": "REQ-108",
-      "previousValue": null,
-      "newValue": "670 Food Packets (Critical)",
-      "reason": "Extensive mass scale: Affected population (620) exceeds the 500 threshold."
-    },
-    {
-      "id": "AUD-19",
-      "timestamp": "2026-10-03T18:37:42.415Z",
-      "userRole": "Command Center Admin",
-      "action": "Incident Updated",
-      "entity": "Incident",
-      "entityId": "INC-01",
-      "previousValue": "Status: Contained, Severity: Critical",
-      "newValue": "Status: Active, Severity: Critical",
-      "reason": "Status marked as Active"
-    },
-    {
-      "id": "AUD-18",
-      "timestamp": "2026-10-03T18:25:37.700Z",
-      "userRole": "Command Center Admin",
-      "action": "Incident Updated",
-      "entity": "Incident",
-      "entityId": "INC-01",
-      "previousValue": "Status: Active, Severity: Critical",
-      "newValue": "Status: Contained, Severity: Critical",
-      "reason": "Status marked as Contained"
-    },
-    {
-      "id": "AUD-17",
-      "timestamp": "2026-10-03T18:25:36.705Z",
-      "userRole": "Command Center Admin",
-      "action": "Incident Updated",
-      "entity": "Incident",
-      "entityId": "INC-01",
-      "previousValue": "Status: Contained, Severity: Critical",
-      "newValue": "Status: Active, Severity: Critical",
-      "reason": "Status marked as Active"
-    },
-    {
-      "id": "AUD-16",
-      "timestamp": "2026-10-03T18:25:34.722Z",
-      "userRole": "Command Center Admin",
-      "action": "Incident Updated",
-      "entity": "Incident",
-      "entityId": "INC-01",
-      "previousValue": "Status: Active, Severity: Critical",
-      "newValue": "Status: Contained, Severity: Critical",
-      "reason": "Status marked as Contained"
-    },
-    {
-      "id": "AUD-15",
-      "timestamp": "2026-10-03T18:24:21.897Z",
-      "userRole": "Command Center Admin",
-      "action": "Resource Inventory Modified",
-      "entity": "Resource",
-      "entityId": "RES-02",
-      "previousValue": "Available: 90",
-      "newValue": "Available: 140",
-      "reason": "Warehouse inventory adjustment."
-    },
-    {
-      "id": "AUD-14",
-      "timestamp": "2026-10-03T18:24:18.906Z",
-      "userRole": "Command Center Admin",
-      "action": "Resource Inventory Modified",
-      "entity": "Resource",
-      "entityId": "RES-02",
-      "previousValue": "Available: 40",
-      "newValue": "Available: 90",
-      "reason": "Warehouse inventory adjustment."
-    },
-    {
-      "id": "AUD-13",
-      "timestamp": "2026-10-03T18:21:44.376Z",
-      "userRole": "Command Center Admin",
-      "action": "Resource Allocation & Delivery Dispatched",
-      "entity": "Delivery",
-      "entityId": "OP-102",
-      "previousValue": "Unassigned",
-      "newValue": "Dispatched Ambulance AMB-01 (ALS) with Red Cross Emergency Paramedics to Bhavanipuram Community Health Post (Zone A)",
-      "reason": "Automated recommendation approved. 50 units allocated from Red Cross Depot, Governorpet."
-    },
-    {
-      "id": "AUD-12",
-      "timestamp": "2026-10-03T16:02:01.160Z",
-      "userRole": "Command Center Admin",
-      "action": "Shelter Details Modified",
-      "entity": "Shelter",
-      "entityId": "SHL-03",
-      "previousValue": "Occupied: 210/600 (Available)",
-      "newValue": "Occupied: 210/600 (Available)",
-      "reason": "Camp capacity or facility modification."
-    },
-    {
-      "id": "AUD-11",
-      "timestamp": "2026-10-03T15:58:13.383Z",
-      "userRole": "Command Center Admin",
-      "action": "Shelter Details Modified",
-      "entity": "Shelter",
-      "entityId": "SHL-03",
-      "previousValue": "Occupied: 210/600 (Available)",
-      "newValue": "Occupied: 210/600 (Available)",
-      "reason": "Camp capacity or facility modification."
-    },
-    {
-      "id": "AUD-10",
-      "timestamp": "2026-10-03T15:57:00.503Z",
-      "userRole": "Command Center Admin",
-      "action": "Shelter Details Modified",
-      "entity": "Shelter",
-      "entityId": "SHL-01",
-      "previousValue": "Occupied: 520/800 (Available)",
-      "newValue": "Occupied: 520/800 (Available)",
-      "reason": "Camp capacity or facility modification."
-    },
-    {
-      "id": "AUD-09",
-      "timestamp": "2026-10-03T15:56:11.462Z",
-      "userRole": "Command Center Admin",
-      "action": "Shelter Details Modified",
-      "entity": "Shelter",
-      "entityId": "SHL-01",
-      "previousValue": "Occupied: 520/800 (Available)",
-      "newValue": "Occupied: 520/800 (Available)",
-      "reason": "Camp capacity or facility modification."
-    },
-    {
-      "id": "AUD-08",
-      "timestamp": "2026-10-03T15:55:28.815Z",
-      "userRole": "Command Center Admin",
-      "action": "Shelter Details Modified",
-      "entity": "Shelter",
-      "entityId": "SHL-02",
-      "previousValue": "Occupied: 50/350 (Available)",
-      "newValue": "Occupied: 50/350 (Available)",
-      "reason": "Camp capacity or facility modification."
-    },
-    {
-      "id": "AUD-07",
-      "timestamp": "2026-10-03T15:54:54.217Z",
-      "userRole": "Command Center Admin",
-      "action": "Shelter Details Modified",
-      "entity": "Shelter",
-      "entityId": "SHL-03",
-      "previousValue": "Occupied: 210/600 (Available)",
-      "newValue": "Occupied: 210/600 (Available)",
-      "reason": "Camp capacity or facility modification."
-    },
-    {
-      "id": "AUD-06",
-      "timestamp": "2026-10-03T15:54:28.897Z",
-      "userRole": "Command Center Admin",
-      "action": "Shelter Details Modified",
-      "entity": "Shelter",
-      "entityId": "SHL-02",
-      "previousValue": "Occupied: 50/350 (Available)",
-      "newValue": "Occupied: 50/350 (Available)",
-      "reason": "Camp capacity or facility modification."
-    },
-    {
-      "id": "AUD-05",
-      "timestamp": "2026-10-03T15:48:58.313Z",
-      "userRole": "Command Center Admin",
-      "action": "Shelter Details Modified",
-      "entity": "Shelter",
-      "entityId": "SHL-02",
-      "previousValue": "Occupied: 338/350 (Near Capacity)",
-      "newValue": "Occupied: 50/350 (Available)",
-      "reason": "Camp capacity or facility modification."
-    },
     {
       "id": "AUD-01",
       "timestamp": "2026-10-03T06:00:00.000Z",
@@ -1060,33 +600,6 @@
   ],
   "alerts": [
     {
-      "id": "ALT-06",
-      "type": "info",
-      "title": "🚚 Operation OP-103 Dispatched",
-      "message": "SDRF Water Rescue Squad 1 dispatched via Heavy Relief Truck V-03 carrying 670 Food Packets. ETA: 18 min.",
-      "timestamp": "2026-10-04T00:38:06.424Z",
-      "read": false,
-      "actionLink": "deliveries"
-    },
-    {
-      "id": "ALT-05",
-      "type": "critical",
-      "title": "🔴 Critical Request Created: REQ-108",
-      "message": "670 Food Packets needed at near temple (620 people).",
-      "timestamp": "2026-10-03T18:56:14.307Z",
-      "read": false,
-      "actionLink": "requests"
-    },
-    {
-      "id": "ALT-04",
-      "type": "info",
-      "title": "🚚 Operation OP-102 Dispatched",
-      "message": "Red Cross Emergency Paramedics dispatched via Ambulance AMB-01 (ALS) carrying 50 Emergency Medical Kits. ETA: 18 min.",
-      "timestamp": "2026-10-03T18:21:44.376Z",
-      "read": false,
-      "actionLink": "deliveries"
-    },
-    {
       "id": "ALT-01",
       "type": "critical",
       "title": "Critical Medical Request Pending",
@@ -1115,3 +628,4 @@
     }
   ]
 }
+;
