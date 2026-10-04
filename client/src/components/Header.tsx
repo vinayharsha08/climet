@@ -12,10 +12,23 @@ import {
   CheckCircle2,
   ChevronDown,
   UserCheck,
+  Smartphone,
+  Monitor,
+  Menu,
 } from 'lucide-react';
 import { api } from '../services/api';
 
-export const Header: React.FC = () => {
+interface HeaderProps {
+  isMobileMode?: boolean;
+  onToggleMobileMode?: () => void;
+  onOpenMobileDrawer?: () => void;
+}
+
+export const Header: React.FC<HeaderProps> = ({
+  isMobileMode,
+  onToggleMobileMode,
+  onOpenMobileDrawer,
+}) => {
   const {
     role,
     setRole,
@@ -127,23 +140,39 @@ export const Header: React.FC = () => {
 
         {/* Action Controls & Simulation Buttons */}
         <div className="flex items-center gap-2 sm:gap-3">
-          {/* Quick Simulation: Road Blockage */}
+          {/* Mobile / Desktop View Toggle */}
+          {onToggleMobileMode && (
+            <button
+              onClick={onToggleMobileMode}
+              title={isMobileMode ? "Switch to Full Desktop View" : "Preview Mobile Phone Interface"}
+              className={`flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold rounded-md border transition-all ${
+                isMobileMode
+                  ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40 hover:bg-emerald-500/30'
+                  : 'bg-blue-600/20 text-blue-300 border-blue-500/40 hover:bg-blue-600/30'
+              }`}
+            >
+              {isMobileMode ? <Monitor className="w-3.5 h-3.5 text-emerald-400" /> : <Smartphone className="w-3.5 h-3.5 text-blue-400" />}
+              <span className="hidden sm:inline">{isMobileMode ? 'Desktop View' : 'Mobile View'}</span>
+            </button>
+          )}
+
+          {/* Quick Simulation: Road Blockage (Desktop) */}
           <button
             onClick={handleSimulateBlockage}
             disabled={isSimulatingBlockage}
             title="Simulate flash flood road obstruction and automatic detour"
-            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md bg-amber-500/20 text-amber-300 border border-amber-500/40 hover:bg-amber-500/30 transition-all shadow-sm"
+            className="hidden md:flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md bg-amber-500/20 text-amber-300 border border-amber-500/40 hover:bg-amber-500/30 transition-all shadow-sm"
           >
             <AlertTriangle className="w-3.5 h-3.5 text-amber-400" />
-            <span className="hidden lg:inline">Simulate</span> Road Blockage
+            <span className="hidden lg:inline">Simulate</span> Blockage
           </button>
 
-          {/* Quick Simulation: Resource Shortage */}
+          {/* Quick Simulation: Resource Shortage (Desktop) */}
           <button
             onClick={handleSimulateShortage}
             disabled={isSimulatingShortage}
             title="Simulate resource deficit and multi-org recommendation"
-            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md bg-purple-500/20 text-purple-300 border border-purple-500/40 hover:bg-purple-500/30 transition-all shadow-sm"
+            className="hidden md:flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md bg-purple-500/20 text-purple-300 border border-purple-500/40 hover:bg-purple-500/30 transition-all shadow-sm"
           >
             <Sparkles className="w-3.5 h-3.5 text-purple-400" />
             <span className="hidden lg:inline">Simulate</span> Shortage
@@ -152,14 +181,14 @@ export const Header: React.FC = () => {
           {/* Interactive Guided Tour Launcher */}
           <button
             onClick={startTour}
-            className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md transition-all ${
+            className={`hidden lg:flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md transition-all ${
               tourStep !== null
                 ? 'bg-blue-600 text-white shadow-lg ring-2 ring-blue-400'
                 : 'bg-blue-950/60 text-blue-300 border border-blue-600/40 hover:bg-blue-900/50'
             }`}
           >
             <Sparkles className="w-3.5 h-3.5 text-blue-300" />
-            <span>Guided Tour (Steps 1-14)</span>
+            <span>Tour</span>
           </button>
 
           {/* Role Switcher Dropdown */}
@@ -278,6 +307,17 @@ export const Header: React.FC = () => {
           >
             <RotateCcw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
           </button>
+
+          {/* Mobile Menu Hamburger */}
+          {onOpenMobileDrawer && (
+            <button
+              onClick={onOpenMobileDrawer}
+              className="md:hidden p-2 rounded-md bg-blue-600/20 text-blue-400 hover:bg-blue-600/30 border border-blue-500/40 transition-colors"
+              title="Open Navigation Drawer"
+            >
+              <Menu className="w-4 h-4" />
+            </button>
+          )}
         </div>
       </div>
     </header>

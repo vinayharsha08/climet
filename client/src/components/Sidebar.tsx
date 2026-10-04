@@ -115,7 +115,7 @@ export const Sidebar: React.FC = () => {
   };
 
   return (
-    <aside className="w-64 bg-gray-950 border-r border-gray-800 flex flex-col justify-between h-[calc(100vh-85px)] sticky top-[85px] select-none">
+    <aside className="hidden md:flex w-64 bg-gray-950 border-r border-gray-800 flex-col justify-between h-[calc(100vh-85px)] sticky top-[85px] select-none shrink-0">
       {/* Navigation Links */}
       <div className="py-3 px-2 space-y-1 overflow-y-auto">
         <div className="px-3 py-1.5 text-[11px] font-semibold text-gray-400 uppercase tracking-wider">

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { EmergencyProvider, useEmergency } from './context/EmergencyContext';
 import { Header } from './components/Header';
 import { Sidebar } from './components/Sidebar';
@@ -7,6 +7,9 @@ import { RoadBlockageModal } from './components/RoadBlockageModal';
 import { ShortageModal } from './components/ShortageModal';
 import { ShelterModal } from './components/ShelterModal';
 import { ExplanationModal } from './components/ExplanationModal';
+import { MobileBottomNav } from './components/MobileBottomNav';
+import { MobileDrawer } from './components/MobileDrawer';
+import { MobileDeviceFrame } from './components/MobileDeviceFrame';
 
 // Views
 import { DashboardView } from './views/DashboardView';
@@ -21,6 +24,20 @@ import { AuditTrailView } from './views/AuditTrailView';
 
 const MainContent: React.FC = () => {
   const { activeTab } = useEmergency();
+
+  // Mobile mode default true per user request: "change into mobile interface"
+  const [isMobileMode, setIsMobileMode] = useState<boolean>(true);
+  const [isNativeMobile, setIsNativeMobile] = useState<boolean>(false);
+  const [showMobileDrawer, setShowMobileDrawer] = useState<boolean>(false);
+
+  useEffect(() => {
+    const checkScreen = () => {
+      setIsNativeMobile(window.innerWidth < 768);
+    };
+    checkScreen();
+    window.addEventListener('resize', checkScreen);
+    return () => window.removeEventListener('resize', checkScreen);
+  }, []);
 
   const renderActiveView = () => {
     switch (activeTab) {
@@ -47,20 +64,42 @@ const MainContent: React.FC = () => {
     }
   };
 
-  return (
-    <div className="min-h-screen bg-gray-950 flex flex-col font-sans">
-      <Header />
+  const appBody = (
+    <div className="min-h-screen bg-gray-950 flex flex-col font-sans relative">
+      <Header
+        isMobileMode={isMobileMode}
+        onToggleMobileMode={() => setIsMobileMode(!isMobileMode)}
+        onOpenMobileDrawer={() => setShowMobileDrawer(true)}
+      />
       <GuidedTour />
 
       <div className="flex-1 flex overflow-hidden">
-        <Sidebar />
+        {/* Sidebar only renders in desktop mode on wider screens */}
+        {!isMobileMode && <Sidebar />}
 
-        <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 bg-gray-950">
+        <main
+          className={`flex-1 overflow-y-auto bg-gray-950 ${
+            isMobileMode || isNativeMobile
+              ? 'p-3 pb-24'
+              : 'p-4 sm:p-6 lg:p-8'
+          }`}
+        >
           <div className="max-w-7xl mx-auto">
             {renderActiveView()}
           </div>
         </main>
       </div>
+
+      {/* Mobile Bottom Navigation Bar */}
+      {(isMobileMode || isNativeMobile) && (
+        <MobileBottomNav onOpenMenu={() => setShowMobileDrawer(true)} />
+      )}
+
+      {/* Mobile Drawer (Accessible from bottom nav "More" or header hamburger) */}
+      <MobileDrawer
+        isOpen={showMobileDrawer}
+        onClose={() => setShowMobileDrawer(false)}
+      />
 
       {/* Global Modals */}
       <RoadBlockageModal />
@@ -68,6 +107,15 @@ const MainContent: React.FC = () => {
       <ShelterModal />
       <ExplanationModal />
     </div>
+  );
+
+  return (
+    <MobileDeviceFrame
+      isSimulated={isMobileMode && !isNativeMobile}
+      onToggleSimulation={() => setIsMobileMode(false)}
+    >
+      {appBody}
+    </MobileDeviceFrame>
   );
 };
 
