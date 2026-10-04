@@ -25,8 +25,8 @@ import { AuditTrailView } from './views/AuditTrailView';
 const MainContent: React.FC = () => {
   const { activeTab } = useEmergency();
 
-  // Mobile mode default true per user request: "change into mobile interface"
-  const [isMobileMode, setIsMobileMode] = useState<boolean>(true);
+  // Mobile mode: false by default so PC opens in full desktop mode, phones adapt naturally
+  const [isMobileMode, setIsMobileMode] = useState<boolean>(false);
   const [isNativeMobile, setIsNativeMobile] = useState<boolean>(false);
   const [showMobileDrawer, setShowMobileDrawer] = useState<boolean>(false);
 
@@ -74,14 +74,12 @@ const MainContent: React.FC = () => {
       <GuidedTour />
 
       <div className="flex-1 flex overflow-hidden">
-        {/* Sidebar only renders in desktop mode on wider screens */}
+        {/* Sidebar automatically renders on desktop when not in simulated phone view */}
         {!isMobileMode && <Sidebar />}
 
         <main
-          className={`flex-1 overflow-y-auto bg-gray-950 ${
-            isMobileMode || isNativeMobile
-              ? 'p-3 pb-24'
-              : 'p-4 sm:p-6 lg:p-8'
+          className={`flex-1 overflow-y-auto bg-gray-950 p-3 sm:p-5 md:p-6 lg:p-8 ${
+            isMobileMode || isNativeMobile ? 'pb-24' : 'pb-8'
           }`}
         >
           <div className="max-w-7xl mx-auto">
@@ -92,7 +90,10 @@ const MainContent: React.FC = () => {
 
       {/* Mobile Bottom Navigation Bar */}
       {(isMobileMode || isNativeMobile) && (
-        <MobileBottomNav onOpenMenu={() => setShowMobileDrawer(true)} />
+        <MobileBottomNav
+          onOpenMenu={() => setShowMobileDrawer(true)}
+          isSimulated={isMobileMode && !isNativeMobile}
+        />
       )}
 
       {/* Mobile Drawer (Accessible from bottom nav "More" or header hamburger) */}

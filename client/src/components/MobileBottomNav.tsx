@@ -10,9 +10,10 @@ import {
 
 interface MobileBottomNavProps {
   onOpenMenu: () => void;
+  isSimulated?: boolean;
 }
 
-export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({ onOpenMenu }) => {
+export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({ onOpenMenu, isSimulated }) => {
   const { activeTab, setActiveTab, stats } = useEmergency();
 
   const navItems = [
@@ -45,7 +46,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({ onOpenMenu }) 
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-40 bg-gray-900/95 backdrop-blur-md border-t border-gray-800 px-2 py-1.5 flex items-center justify-around safe-area-bottom shadow-2xl">
+    <nav className={`${isSimulated ? 'absolute' : 'fixed md:hidden'} bottom-0 left-0 right-0 z-40 bg-gray-900/95 backdrop-blur-md border-t border-gray-800 px-2 py-1.5 flex items-center justify-around safe-area-bottom shadow-2xl`}>
       {navItems.map((item) => {
         const Icon = item.icon;
         const isActive = activeTab === item.id;

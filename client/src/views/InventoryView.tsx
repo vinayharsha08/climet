@@ -142,9 +142,69 @@ export const InventoryView: React.FC = () => {
         </div>
       </div>
 
-      {/* Inventory Table */}
+      {/* Inventory Table / Cards */}
       <div className="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden shadow-sm">
-        <div className="overflow-x-auto">
+        {/* Mobile View: Cards */}
+        <div className="md:hidden divide-y divide-gray-800">
+          {filtered.map((item) => (
+            <div key={item.id} className="p-3.5 space-y-2.5">
+              <div className="flex items-start justify-between gap-2">
+                <div>
+                  <div className="font-bold text-white text-xs flex items-center gap-1.5">
+                    <span>{item.type}</span>
+                    <span className="text-[10px] font-mono text-gray-500">({item.id})</span>
+                  </div>
+                  <div className="text-[11px] text-gray-400 mt-0.5">{item.warehouseLocation}</div>
+                  <div className="text-[10px] text-blue-400 font-medium mt-0.5">{item.orgName}</div>
+                </div>
+                <span
+                  className={`text-[9px] font-bold px-2 py-0.5 rounded border shrink-0 ${
+                    item.availableQuantity > 100
+                      ? 'bg-emerald-950/60 text-emerald-300 border-emerald-800'
+                      : item.availableQuantity > 0
+                      ? 'bg-amber-950/60 text-amber-300 border-amber-800'
+                      : 'bg-red-950/60 text-red-300 border-red-800'
+                  }`}
+                >
+                  {item.availableQuantity > 100 ? 'IN STOCK' : item.availableQuantity > 0 ? 'LOW STOCK' : 'DEPLETED'}
+                </span>
+              </div>
+
+              {/* 3-Part Quantity Tally */}
+              <div className="grid grid-cols-3 gap-2 bg-gray-950/60 p-2 rounded-lg border border-gray-800 text-center font-mono">
+                <div>
+                  <span className="text-[10px] text-gray-400 block">Available</span>
+                  <span className="text-xs font-bold text-white">{item.availableQuantity.toLocaleString()}</span>
+                </div>
+                <div>
+                  <span className="text-[10px] text-purple-400 block">Allocated</span>
+                  <span className="text-xs font-bold text-purple-300">{item.allocatedQuantity.toLocaleString()}</span>
+                </div>
+                <div>
+                  <span className="text-[10px] text-emerald-400 block">Consumed</span>
+                  <span className="text-xs font-bold text-emerald-300">{item.consumedQuantity.toLocaleString()}</span>
+                </div>
+              </div>
+
+              {(role === 'Command Center Admin' || role === 'Organization Manager') && (
+                <div className="flex justify-end pt-1">
+                  <button
+                    onClick={() => {
+                      setAdjustingResource(item);
+                      setAdjustDelta(50);
+                    }}
+                    className="px-3 py-1 rounded bg-gray-800 hover:bg-gray-700 text-gray-200 text-xs font-medium border border-gray-700"
+                  >
+                    + Restock Units
+                  </button>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop View: Full Wide Table */}
+        <div className="hidden md:block overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead className="bg-gray-950/80 border-b border-gray-800 text-gray-400 uppercase tracking-wider font-mono text-[11px]">
               <tr>

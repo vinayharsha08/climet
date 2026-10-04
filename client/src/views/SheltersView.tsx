@@ -360,7 +360,7 @@ export const SheltersView: React.FC = () => {
       {/* CREATE SHELTER MODAL */}
       {showCreateModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fadeIn">
-          <div className="bg-gray-900 border border-gray-700 rounded-xl shadow-2xl max-w-lg w-full p-6 text-gray-100">
+          <div className="bg-gray-900 border border-gray-700 rounded-xl shadow-2xl max-w-lg w-full p-5 sm:p-6 text-gray-100 max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between border-b border-gray-800 pb-3 mb-4">
               <h3 className="text-base font-bold text-white flex items-center gap-2">
                 <Plus className="w-5 h-5 text-blue-400" />
@@ -486,7 +486,7 @@ export const SheltersView: React.FC = () => {
       {/* EDIT SHELTER MODAL */}
       {editingShelter && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fadeIn">
-          <div className="bg-gray-900 border border-gray-700 rounded-xl shadow-2xl max-w-lg w-full p-6 text-gray-100">
+          <div className="bg-gray-900 border border-gray-700 rounded-xl shadow-2xl max-w-lg w-full p-5 sm:p-6 text-gray-100 max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between border-b border-gray-800 pb-3 mb-4">
               <h3 className="text-base font-bold text-white flex items-center gap-2">
                 <Edit2 className="w-5 h-5 text-amber-400" />

@@ -97,9 +97,10 @@ export const Header: React.FC<HeaderProps> = ({
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500"></span>
           </span>
-          <span className="font-bold tracking-wide text-red-200">ACTIVE DISASTER PROTOCOL:</span>
-          <span className="bg-red-900/80 text-red-200 px-2 py-0.5 rounded font-mono font-medium border border-red-700/50">
-            Vijayawada Flood Emergency – 2026
+          <span className="hidden sm:inline font-bold tracking-wide text-red-200">ACTIVE DISASTER PROTOCOL:</span>
+          <span className="sm:hidden font-bold tracking-wide text-red-200">PROTOCOL:</span>
+          <span className="bg-red-900/80 text-red-200 px-2 py-0.5 rounded font-mono font-medium border border-red-700/50 truncate max-w-[200px] sm:max-w-none">
+            Vijayawada Floods 2026
           </span>
           <span className="hidden md:inline text-red-300/80">|</span>
           <span className="hidden md:inline text-red-300/90 font-medium">

@@ -220,7 +220,80 @@ export const RequestsView: React.FC = () => {
 
       {/* Requests Table / Cards */}
       <div className="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden shadow-sm">
-        <div className="overflow-x-auto">
+        {/* Mobile View: Cards */}
+        <div className="md:hidden divide-y divide-gray-800">
+          {filteredRequests.map((req) => (
+            <div key={req.id} className="p-3.5 space-y-2">
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex items-center gap-1.5">
+                  <span className="font-mono font-bold text-blue-400 text-xs">{req.id}</span>
+                  <span className="text-[10px] text-gray-500 font-normal">({req.incidentId})</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <span
+                    className={`text-[9px] font-bold px-2 py-0.5 rounded border ${
+                      req.priority === 'Critical'
+                        ? 'bg-red-900/60 text-red-300 border-red-700'
+                        : req.priority === 'High'
+                        ? 'bg-amber-900/60 text-amber-300 border-amber-700'
+                        : req.priority === 'Medium'
+                        ? 'bg-blue-900/60 text-blue-300 border-blue-700'
+                        : 'bg-gray-800 text-gray-400 border-gray-700'
+                    }`}
+                  >
+                    {req.priority.toUpperCase()}
+                  </span>
+                  <span
+                    className={`text-[9px] font-semibold px-1.5 py-0.5 rounded border ${
+                      req.status === 'Pending'
+                        ? 'bg-amber-950/60 text-amber-300 border-amber-800'
+                        : req.status === 'Allocated'
+                        ? 'bg-purple-950/60 text-purple-300 border-purple-800'
+                        : req.status === 'Delivered'
+                        ? 'bg-emerald-950/60 text-emerald-300 border-emerald-800'
+                        : 'bg-gray-800 text-gray-400'
+                    }`}
+                  >
+                    {req.status}
+                  </span>
+                </div>
+              </div>
+
+              <div>
+                <div className="font-medium text-white text-xs">{req.location}</div>
+                <div className="text-gray-300 text-xs font-semibold mt-0.5">
+                  {req.quantity} {req.unit} — <span className="text-gray-400 font-normal">{req.requestedResource}</span>
+                </div>
+              </div>
+
+              <div className="p-2 rounded bg-gray-950/60 border border-gray-800/80 text-[11px] text-gray-300 leading-tight">
+                <span className="text-gray-400 font-semibold">Triage Reason: </span>
+                {req.priorityReason}
+              </div>
+
+              <div className="flex items-center justify-between pt-1">
+                <span className="text-[11px] text-gray-400 flex items-center gap-1">
+                  <Users className="w-3 h-3 text-gray-500" />
+                  <span>{req.affectedPeople} citizens affected</span>
+                </span>
+                {req.status === 'Pending' ? (
+                  <button
+                    onClick={() => handleAllocate(req.id)}
+                    className="px-3 py-1 rounded bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow transition-all flex items-center gap-1"
+                  >
+                    <Cpu className="w-3 h-3" />
+                    <span>Allocate</span>
+                  </button>
+                ) : (
+                  <span className="text-[11px] text-gray-500 italic">Dispatched</span>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop View: Full Wide Table */}
+        <div className="hidden md:block overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead className="bg-gray-950/80 border-b border-gray-800 text-gray-400 uppercase tracking-wider font-mono text-[11px]">
               <tr>

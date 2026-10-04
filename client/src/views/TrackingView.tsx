@@ -312,12 +312,12 @@ export const TrackingView: React.FC = () => {
       {/* Main Map + Side Panel Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         {/* Interactive Leaflet Map Container */}
-        <div className="lg:col-span-2 bg-gray-900 border border-gray-800 rounded-xl overflow-hidden shadow-lg relative min-h-[500px]">
+        <div className="lg:col-span-2 bg-gray-900 border border-gray-800 rounded-xl overflow-hidden shadow-lg relative h-[380px] sm:h-[480px] lg:h-[580px]">
           {/* Map Canvas */}
-          <div ref={mapContainerRef} className="w-full h-full min-h-[500px] z-10" />
+          <div ref={mapContainerRef} className="w-full h-full z-10" />
 
           {/* Map Overlay Badge & Legend */}
-          <div className="absolute top-3 left-3 z-20 bg-gray-900/90 backdrop-blur-md p-3 rounded-lg border border-gray-750 text-xs shadow-xl space-y-1.5">
+          <div className="hidden sm:block absolute top-3 left-3 z-20 bg-gray-900/90 backdrop-blur-md p-3 rounded-lg border border-gray-750 text-xs shadow-xl space-y-1.5">
             <span className="text-[10px] font-mono font-bold text-gray-400 uppercase tracking-wider block">
               MAP LEGEND & SECTORS
             </span>

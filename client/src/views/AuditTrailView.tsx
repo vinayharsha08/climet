@@ -128,9 +128,62 @@ export const AuditTrailView: React.FC = () => {
         </div>
       </div>
 
-      {/* Audit Log Table */}
+      {/* Audit Log Table / Cards */}
       <div className="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden shadow-sm">
-        <div className="overflow-x-auto">
+        {/* Mobile View: Event Cards */}
+        <div className="md:hidden divide-y divide-gray-800">
+          {filteredLogs.map((log) => (
+            <div key={log.id} className="p-3.5 space-y-2">
+              <div className="flex items-center justify-between gap-2">
+                <span className="font-mono text-gray-400 text-[10px]">{log.id}</span>
+                <span
+                  className={`text-[9px] font-bold px-2 py-0.5 rounded border ${
+                    log.userRole === 'System AI Engine'
+                      ? 'bg-purple-950/60 text-purple-300 border-purple-800'
+                      : log.userRole === 'Command Center Admin'
+                      ? 'bg-blue-950/60 text-blue-300 border-blue-800'
+                      : 'bg-gray-800 text-gray-300 border-gray-700'
+                  }`}
+                >
+                  {log.userRole}
+                </span>
+              </div>
+
+              <div>
+                <div className="font-bold text-white text-xs">{log.action}</div>
+                <div className="text-[11px] text-blue-400 font-mono mt-0.5">
+                  {log.entity} {log.entityId ? `[${log.entityId}]` : ''}
+                </div>
+              </div>
+
+              {log.previousValue ? (
+                <div className="p-2 rounded bg-gray-950/60 border border-gray-800/80 text-[11px] space-y-1">
+                  <div className="text-gray-400 line-through">Prev: {log.previousValue}</div>
+                  <div className="text-emerald-300 font-medium flex items-center gap-1">
+                    <ArrowRight className="w-3 h-3 text-emerald-400 shrink-0" />
+                    <span>{log.newValue}</span>
+                  </div>
+                </div>
+              ) : (
+                <div className="p-2 rounded bg-gray-950/60 border border-gray-800/80 text-[11px] text-emerald-300 font-medium">
+                  {log.newValue}
+                </div>
+              )}
+
+              <p className="text-[11px] text-gray-300 leading-snug">
+                <span className="text-gray-400 font-semibold">Reason: </span>
+                {log.reason}
+              </p>
+
+              <div className="text-[10px] text-gray-500 font-mono pt-1">
+                {new Date(log.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })} • {new Date(log.timestamp).toLocaleDateString()}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop View: Full Table */}
+        <div className="hidden md:block overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead className="bg-gray-950/80 border-b border-gray-800 text-gray-400 uppercase tracking-wider font-mono text-[11px]">
               <tr>
